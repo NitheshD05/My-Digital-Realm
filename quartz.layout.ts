@@ -5,11 +5,12 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [Component.HackerEffects()],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      GitHub: "https://github.com/NitheshD05",
+      LinkedIn: "https://www.linkedin.com/in/nithesh-dhakshanamoorthy-2541111b3",
+      "HackTheBox": "https://app.hackthebox.com/profile/1701603",
     },
   }),
 }
