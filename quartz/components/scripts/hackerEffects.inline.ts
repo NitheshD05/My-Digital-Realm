@@ -535,6 +535,201 @@ function initH2Trace() {
   })
 }
 
+// ── Interactive Terminal Popup ──────────────────────────────────
+function initHackerTerminal() {
+  if (document.getElementById("hacker-terminal-btn")) return
+
+  // Floating button
+  const btn = document.createElement("button")
+  btn.id = "hacker-terminal-btn"
+  btn.innerHTML = `<span>&gt;_</span>`
+  btn.title = "Open Terminal"
+  document.body.appendChild(btn)
+
+  // Terminal modal
+  const modal = document.createElement("div")
+  modal.id = "hacker-terminal"
+  modal.innerHTML = `
+    <div class="ht-titlebar">
+      <span class="ht-dots"><span></span><span></span><span></span></span>
+      <span class="ht-title">NitheshD05@CyberRealm:~$</span>
+      <button class="ht-close">✕</button>
+    </div>
+    <div class="ht-body">
+      <pre class="ht-output">Welcome to Cyber Realm Terminal v1.0
+Type <span class="ht-cmd">help</span> for available commands.
+</pre>
+      <div class="ht-input-row">
+        <span class="ht-prompt">NitheshD05@CyberRealm:~$&nbsp;</span>
+        <input class="ht-input" type="text" autocomplete="off" spellcheck="false" autofocus />
+      </div>
+    </div>
+  `
+  document.body.appendChild(modal)
+
+  const output = modal.querySelector(".ht-output") as HTMLPreElement
+  const input = modal.querySelector(".ht-input") as HTMLInputElement
+
+  const commands: Record<string, () => string> = {
+    help: () =>
+      `Available commands:\n  <span class="ht-cmd">whoami</span>     — About NitheshD05\n  <span class="ht-cmd">skills</span>     — Skill proficiency\n  <span class="ht-cmd">htb</span>        — HackTheBox stats\n  <span class="ht-cmd">contact</span>    — Get in touch\n  <span class="ht-cmd">certs</span>      — Certifications\n  <span class="ht-cmd">ls</span>         — List site sections\n  <span class="ht-cmd">clear</span>      — Clear terminal\n  <span class="ht-cmd">exit</span>       — Close terminal`,
+
+    whoami: () =>
+      `<span class="ht-green">NitheshD05</span> — Nithesh Dhakshanamoorthy\nMSc Information Security | Penetration Tester\nOrigin: India → UK\nSpecialisation: Web &amp; Network Penetration Testing\nVisa: Graduate Route (UK)`,
+
+    skills: () =>
+      `<span class="ht-cyan">[SKILL PROFICIENCY SCAN]</span>\n\nPenetration Testing  <span class="ht-bar" data-val="95">░░░░░░░░░░░░░░░░░░░░</span> 95%\nNetwork Security     <span class="ht-bar" data-val="85">░░░░░░░░░░░░░░░░░░░░</span> 85%\nWeb App Testing      <span class="ht-bar" data-val="88">░░░░░░░░░░░░░░░░░░░░</span> 88%\nActive Directory     <span class="ht-bar" data-val="78">░░░░░░░░░░░░░░░░░░░░</span> 78%\nPython / Scripting   <span class="ht-bar" data-val="82">░░░░░░░░░░░░░░░░░░░░</span> 82%\nCTF / HTB            <span class="ht-bar" data-val="90">░░░░░░░░░░░░░░░░░░░░</span> 90%`,
+
+    htb: () =>
+      `<span class="ht-green">[HACKTHEBOX STATS]</span>\n\nProfile  : app.hackthebox.com/profile/1701603\nGlobal Rank : <span class="ht-cyan">Top 400</span> worldwide\nMachines    : 50+ pwned\nStatus      : <span class="ht-green">Active</span>`,
+
+    contact: () =>
+      `<span class="ht-cyan">[CONTACT INFO]</span>\n\nEmail    : nitheshdm05@gmail.com\nLinkedIn : linkedin.com/in/nithesh-dhakshanamoorthy-2541111b3\nGitHub   : github.com/NitheshD05\nHTB      : app.hackthebox.com/profile/1701603\nX        : x.com/05Nithesh`,
+
+    certs: () =>
+      `<span class="ht-cyan">[CERTIFICATIONS &amp; PROGRESS]</span>\n\n[✓] MSc Information Security (UK)\n[✓] Top 3% TryHackMe (4M+ users)\n[✓] Top 400 HackTheBox Globally\n[~] CPTS — <span class="ht-green">In Progress</span>`,
+
+    ls: () =>
+      `<span class="ht-green">drwxr-xr-x</span>  CV/\n<span class="ht-green">drwxr-xr-x</span>  HTB-Writeups/\n<span class="ht-green">drwxr-xr-x</span>  Blogs/\n<span class="ht-green">-rw-r--r--</span>  Cover-Letter.md\n<span class="ht-green">-rw-r--r--</span>  Cheat-Sheet.md\n<span class="ht-green">-rw-r--r--</span>  Command-Dump.md`,
+
+    clear: () => {
+      output.innerHTML = ""
+      return ""
+    },
+
+    exit: () => {
+      setTimeout(() => modal.classList.remove("open"), 200)
+      return `<span class="ht-pink">Session terminated.</span>`
+    },
+  }
+
+  function printLine(html: string) {
+    if (!html) return
+    output.innerHTML += html + "\n"
+    output.scrollTop = output.scrollHeight
+    // Animate skill bars if present
+    output.querySelectorAll(".ht-bar[data-val]").forEach((bar) => {
+      const val = parseInt((bar as HTMLElement).dataset.val || "0")
+      const filled = Math.round(val / 5)
+      bar.textContent = "█".repeat(filled) + "░".repeat(20 - filled)
+    })
+  }
+
+  function handleCommand(cmd: string) {
+    const trimmed = cmd.trim().toLowerCase()
+    output.innerHTML += `<span class="ht-prompt-echo">NitheshD05@CyberRealm:~$</span> ${cmd}\n`
+    if (trimmed === "") {
+      output.scrollTop = output.scrollHeight
+      return
+    }
+    const fn = commands[trimmed]
+    if (fn) {
+      printLine(fn())
+    } else {
+      printLine(`<span class="ht-pink">command not found: ${cmd}. Type <span class="ht-cmd">help</span></span>`)
+    }
+  }
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      handleCommand(input.value)
+      input.value = ""
+    }
+  })
+
+  btn.addEventListener("click", () => {
+    modal.classList.toggle("open")
+    if (modal.classList.contains("open")) setTimeout(() => input.focus(), 100)
+  })
+  modal.querySelector(".ht-close")!.addEventListener("click", () => modal.classList.remove("open"))
+}
+
+// ── 3D Card Tilt on Internal Links ─────────────────────────────
+function init3DTilt() {
+  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  if (isTouch) return
+
+  document.querySelectorAll<HTMLElement>("a.internal").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width - 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5
+      card.style.transform = `perspective(300px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateY(-2px) scale(1.02)`
+    })
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = ""
+    })
+  })
+}
+
+// ── Fake IP + Session in Status Bar ────────────────────────────
+function initFakeIP() {
+  const sb = document.getElementById("cyber-statusbar")
+  if (!sb || document.getElementById("sb-ip")) return
+
+  const right = sb.querySelector(".sb-right") as HTMLElement
+  if (!right) return
+
+  const wrap = document.createElement("span")
+  wrap.innerHTML = `<span class="sb-sep">|</span> <span id="sb-ip">10.10.x.x</span>`
+  right.appendChild(wrap)
+
+  const fakeOctet = () => Math.floor(Math.random() * 50 + 100)
+  const updateIP = () => {
+    const el = document.getElementById("sb-ip")
+    if (el) el.textContent = `10.10.${fakeOctet()}.${fakeOctet()}`
+  }
+  updateIP()
+  // Occasionally flicker IP (like VPN reconnect)
+  setInterval(() => {
+    if (Math.random() > 0.85) updateIP()
+  }, 5000)
+}
+
+// ── Konami Code Easter Egg ──────────────────────────────────────
+function initKonamiCode() {
+  const sequence = [
+    "ArrowUp","ArrowUp","ArrowDown","ArrowDown",
+    "ArrowLeft","ArrowRight","ArrowLeft","ArrowRight",
+    "b","a",
+  ]
+  let pos = 0
+  document.addEventListener("keydown", (e) => {
+    if (e.key === sequence[pos]) {
+      pos++
+      if (pos === sequence.length) {
+        pos = 0
+        triggerKonami()
+      }
+    } else {
+      pos = 0
+    }
+  })
+
+  function triggerKonami() {
+    const flash = document.createElement("div")
+    flash.id = "konami-flash"
+    flash.innerHTML = `
+      <div class="konami-content">
+        <pre class="konami-ascii">
+ ██╗  ██╗ █████╗  ██████╗██╗  ██╗███████╗██████╗
+ ██║  ██║██╔══██╗██╔════╝██║ ██╔╝██╔════╝██╔══██╗
+ ███████║███████║██║     █████╔╝ █████╗  ██║  ██║
+ ██╔══██║██╔══██║██║     ██╔═██╗ ██╔══╝  ██║  ██║
+ ██║  ██║██║  ██║╚██████╗██║  ██╗███████╗██████╔╝
+ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═════╝</pre>
+        <p class="konami-msg">&gt; ROOT ACCESS GRANTED &lt;</p>
+        <p class="konami-sub">You found the secret. Nice moves, hacker.</p>
+      </div>`
+    document.body.appendChild(flash)
+    setTimeout(() => {
+      flash.style.opacity = "0"
+      flash.style.transition = "opacity 0.8s"
+      setTimeout(() => flash.remove(), 800)
+    }, 2500)
+  }
+}
+
 // ── Init All Effects ────────────────────────────────────────────
 function runPageEffects() {
   initGlitchTitle()
@@ -543,6 +738,7 @@ function runPageEffects() {
   initKeywordBadges()
   initScrollReveal()
   initH2Trace()
+  init3DTilt()
 
   // Refresh cursor ring bindings (only on pointer devices)
   const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
@@ -566,8 +762,11 @@ initBootSequence()
 initCursorTrail()
 initStatusBar()
 initPacketsCounter()
+initFakeIP()
 initNavFlash()
 initConsoleEgg()
+initHackerTerminal()
+initKonamiCode()
 
 // Per-page init
 runPageEffects()
