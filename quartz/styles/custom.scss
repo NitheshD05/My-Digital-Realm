@@ -1148,3 +1148,234 @@ article ol li::marker {
   0%, 100% { text-shadow: 0 0 6px rgba(0, 255, 65, 0.4); }
   50% { text-shadow: 0 0 12px rgba(0, 255, 65, 0.7), 0 0 24px rgba(0, 255, 65, 0.2); }
 }
+
+// ══════════════════════════════════════════════════════════════════
+//  ENHANCED ANIMATIONS
+// ══════════════════════════════════════════════════════════════════
+
+// ── Scroll Reveal ─────────────────────────────────────────────────
+// JS adds .reveal class; IntersectionObserver adds .visible
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+// Headings slide from left
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+// ── Animated Underline on Links ───────────────────────────────────
+// Cyan sweep left → right on hover (external + nav links)
+a:not(.tag-link):not(.internal):not(#search-button) {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+    box-shadow: 0 0 4px var(--neon-cyan);
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after { width: 100%; }
+}
+
+// ── Code Block Scan Line ──────────────────────────────────────────
+// A translucent horizontal bar glides down through code blocks
+pre {
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(
+      transparent 0%,
+      rgba(0, 255, 65, 0.04) 40%,
+      rgba(0, 255, 65, 0.07) 50%,
+      rgba(0, 255, 65, 0.04) 60%,
+      transparent 100%
+    );
+    animation: codeScan 5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@keyframes codeScan {
+  0%   { top: -60px; opacity: 0; }
+  5%   { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+
+// ── Typewriter Cursor on Page Title ──────────────────────────────
+.page-title a::after {
+  content: "█";
+  font-size: 0.85em;
+  margin-left: 3px;
+  animation: blink 1.1s step-end infinite;
+  color: var(--neon-green);
+  opacity: 0.8;
+  vertical-align: middle;
+}
+
+// ── Neon Flicker on Article h1 ────────────────────────────────────
+// Occasional flicker like a real neon sign
+h1.article-title {
+  animation: neonFlicker 8s steps(1) infinite;
+}
+
+@keyframes neonFlicker {
+  0%, 92%, 100%  { text-shadow: var(--glow-cyan); opacity: 1; }
+  93%  { opacity: 0.7; text-shadow: none; }
+  94%  { opacity: 1;   text-shadow: var(--glow-cyan); }
+  95%  { opacity: 0.5; text-shadow: none; }
+  96%  { opacity: 1;   text-shadow: var(--glow-cyan); }
+}
+
+// ── Image Hover — Chromatic Aberration Glitch ─────────────────────
+article img {
+  &:hover {
+    animation: imgGlitch 0.4s steps(1) forwards;
+  }
+}
+
+@keyframes imgGlitch {
+  0%  { filter: none; }
+  20% { filter: hue-rotate(90deg) saturate(2); transform: scale(1.01) translate(2px, 0); }
+  40% { filter: hue-rotate(-90deg) saturate(2); transform: scale(1.01) translate(-2px, 0); }
+  60% { filter: hue-rotate(180deg); transform: scale(1.01) translate(1px, 1px); }
+  80% { filter: none; transform: scale(1.01); }
+  100%{ filter: none; transform: scale(1); }
+}
+
+// ── Tag Hover — Bounce + Glow ─────────────────────────────────────
+a.tag-link {
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.25) !important;
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.97);
+  }
+}
+
+// ── Internal Link Hover — Lift Effect ────────────────────────────
+a.internal {
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 255, 65, 0.2) !important;
+  }
+}
+
+// ── Explorer Folder Open — Items Slide In ────────────────────────
+.folder-outer.open > ul {
+  animation: slideDown 0.25s ease forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ── Status Bar Packets Counter ────────────────────────────────────
+// Styled via JS (id="sb-packets")
+#sb-packets {
+  color: var(--neon-cyan);
+  font-variant-numeric: tabular-nums;
+  min-width: 4ch;
+  display: inline-block;
+  text-align: right;
+}
+
+// ── Article Entry Animation ───────────────────────────────────────
+// Whole article fades in on page load / navigation
+@keyframes articleEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+article {
+  animation: articleEnter 0.5s ease forwards;
+}
+
+// ── Graph Node Enhanced Pulse ─────────────────────────────────────
+.graph svg circle {
+  animation: nodePulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px var(--neon-green));
+}
+
+@keyframes nodePulse {
+  0%, 100% { r: attr(r); filter: drop-shadow(0 0 2px var(--neon-green)); }
+  50%       { filter: drop-shadow(0 0 6px var(--neon-green)); }
+}
+
+// ── Section Divider Trace ─────────────────────────────────────────
+// h2 gets an animated border trace on appearance
+article h2 {
+  position: relative;
+  padding-bottom: 0.4rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--neon-cyan), transparent);
+    box-shadow: 0 0 4px var(--neon-cyan);
+  }
+
+  &.visible::after {
+    width: 100%;
+    transition: width 0.6s ease 0.15s;
+  }
+}
+
+// ── Backlinks hover card expand ───────────────────────────────────
+.backlinks ul li {
+  transition: all 0.2s ease;
+  padding-left: 0;
+
+  &:hover {
+    padding-left: 4px;
+    border-left: 2px solid var(--neon-green);
+  }
+}
+
+// ── Reduce motion override ────────────────────────────────────────
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #matrix-rain { display: none; }
+  .reveal, .reveal-left { opacity: 1; transform: none; }
+}

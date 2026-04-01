@@ -456,12 +456,94 @@ function initConsoleEgg() {
   )
 }
 
+// ── Scroll Reveal ───────────────────────────────────────────────
+function initScrollReveal() {
+  // Skip if user prefers reduced motion
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible")
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
+  )
+
+  // Headings slide from left
+  document.querySelectorAll("article h2, article h3").forEach((el, i) => {
+    if (!el.classList.contains("reveal-left")) {
+      el.classList.add("reveal-left")
+      ;(el as HTMLElement).style.transitionDelay = `${i * 0}ms` // no stagger on headings
+      observer.observe(el)
+    }
+  })
+
+  // Body content fades up with stagger
+  const revealEls = document.querySelectorAll(
+    "article p, article li, article pre, article blockquote, article table, article img",
+  )
+  revealEls.forEach((el, i) => {
+    if (!el.classList.contains("reveal")) {
+      el.classList.add("reveal")
+      ;(el as HTMLElement).style.transitionDelay = `${Math.min(i * 35, 280)}ms`
+      observer.observe(el)
+    }
+  })
+}
+
+// ── Live Packets Counter in Status Bar ─────────────────────────
+function initPacketsCounter() {
+  const sb = document.getElementById("cyber-statusbar")
+  if (!sb || document.getElementById("sb-packets")) return
+
+  const right = sb.querySelector(".sb-right") as HTMLElement
+  if (!right) return
+
+  const wrap = document.createElement("span")
+  wrap.innerHTML = `<span class="sb-sep">|</span> PKT: <span id="sb-packets">0</span>`
+  right.prepend(wrap)
+
+  let packets = Math.floor(Math.random() * 4000) + 1000
+
+  setInterval(() => {
+    packets += Math.floor(Math.random() * 12) + 1
+    const el = document.getElementById("sb-packets")
+    if (el) el.textContent = packets.toLocaleString()
+  }, 400)
+}
+
+// ── Animate h2 underline trace on scroll ───────────────────────
+function initH2Trace() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible")
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.3 },
+  )
+
+  document.querySelectorAll("article h2").forEach((el) => {
+    observer.observe(el)
+  })
+}
+
 // ── Init All Effects ────────────────────────────────────────────
 function runPageEffects() {
   initGlitchTitle()
   initScrambleTitle()
   initSearchPlaceholder()
   initKeywordBadges()
+  initScrollReveal()
+  initH2Trace()
+
   // Refresh cursor ring bindings (only on pointer devices)
   const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
   if (!isTouch) {
@@ -483,6 +565,7 @@ initMatrixRain()
 initBootSequence()
 initCursorTrail()
 initStatusBar()
+initPacketsCounter()
 initNavFlash()
 initConsoleEgg()
 
