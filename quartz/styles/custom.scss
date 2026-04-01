@@ -56,10 +56,14 @@ body::after {
   100% { background-position: 0 100vh; }
 }
 
-// ── Custom Cursor ────────────────────────────────────────────────
-* { cursor: none !important; }
+// ── Custom Cursor (desktop / mouse only) ─────────────────────────
+// Only hide native cursor on true pointer devices (not touch)
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}
 
 #cursor-dot {
+  display: none; // hidden by default; JS shows it only on pointer devices
   position: fixed;
   width: 6px;
   height: 6px;
@@ -73,6 +77,7 @@ body::after {
 }
 
 #cursor-ring {
+  display: none; // hidden by default; JS shows it only on pointer devices
   position: fixed;
   width: 28px;
   height: 28px;
@@ -1060,11 +1065,76 @@ article ol li::marker {
   p { color: #6a9a6a !important; font-size: 0.8rem; }
 }
 
-// ── Responsive ───────────────────────────────────────────────────
-@media screen and (max-width: 600px) {
-  #cyber-statusbar .sb-center { display: none; }
-  #cyber-statusbar .sb-right { display: none; }
-  .boot-ascii { display: none; }
+// ── Responsive / Mobile ──────────────────────────────────────────
+
+// Touch devices: restore native cursor, hide custom cursor elements
+@media (hover: none), (pointer: coarse) {
+  * { cursor: auto !important; }
+  #cursor-dot, #cursor-ring { display: none !important; }
+
+  // Tool badge tooltips don't work on touch — just show as inline text
+  .tool-badge::after { display: none !important; }
+}
+
+@media screen and (max-width: 800px) {
+  // Reduce matrix rain opacity on mobile (performance)
+  #matrix-rain { opacity: 0.035; }
+
+  // Status bar: strip down to essentials
+  #cyber-statusbar {
+    padding: 0 0.6rem;
+    font-size: 0.6rem;
+
+    .sb-center { display: none; }
+    .sb-right { display: none; }
+    .sb-path { max-width: 140px; }
+  }
+
+  // Boot sequence: hide wide ASCII art, shrink text
+  #boot-sequence {
+    .boot-ascii { display: none; }
+    .boot-text { font-size: 0.72rem; line-height: 1.6; }
+    .boot-content { padding: 1rem; }
+  }
+
+  // Article corner accents: smaller on mobile
+  article::before, article::after {
+    width: 16px;
+    height: 16px;
+  }
+
+  // Prevent monospace overflow on small screens
+  p, li, td, th {
+    font-size: 0.82rem !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  h1.article-title {
+    font-size: 1.2rem;
+    &::before { content: "$ "; }
+  }
+
+  // Code blocks: enable horizontal scroll instead of overflow
+  pre {
+    overflow-x: auto;
+    font-size: 0.78rem;
+  }
+
+  // Article padding
+  article { padding: 1rem 0.75rem; }
+}
+
+@media screen and (max-width: 480px) {
+  #cyber-statusbar .sb-left span:not(.sb-dot):not(.sb-path) {
+    display: none;
+  }
+
+  body { padding-bottom: 26px; }
+
+  // Tighten up heading prefixes on very small screens
+  article h2::before { content: "// "; }
+  article h3::before { content: "> "; }
 }
 
 // ── Smooth Glow Breathing on Sidebar headers ──────────────────────

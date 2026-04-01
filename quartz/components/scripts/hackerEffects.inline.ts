@@ -24,7 +24,12 @@ function initMatrixRain() {
 
   const chars =
     "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ0123456789ABCDEF<>{}[]|/\\!@#$%^&*ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷｻｳｽﾊﾋｸ"
-  const fontSize = 13
+
+  // Use larger font (fewer columns) on mobile for performance
+  const isMobile = window.innerWidth < 800
+  const fontSize = isMobile ? 18 : 13
+  const fpsInterval = isMobile ? 80 : 45  // slower on mobile
+
   let columns = Math.floor(canvas.width / fontSize)
   let drops: number[] = Array(columns).fill(1).map(() => Math.random() * -100)
 
@@ -50,7 +55,7 @@ function initMatrixRain() {
     }
   }
 
-  const matrixInterval = setInterval(draw, 45)
+  const matrixInterval = setInterval(draw, fpsInterval)
   // Store interval id for cleanup
   ;(canvas as any)._matrixInterval = matrixInterval
 }
@@ -215,14 +220,20 @@ function initScrambleTitle() {
 
 // ── Cursor Trail ────────────────────────────────────────────────
 function initCursorTrail() {
+  // Skip on touch/mobile devices — they don't have a mouse cursor
+  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  if (isTouch) return
+
   if (document.getElementById("cursor-dot")) return
 
   const dot = document.createElement("div")
   dot.id = "cursor-dot"
+  dot.style.display = "block"
   document.body.appendChild(dot)
 
   const ring = document.createElement("div")
   ring.id = "cursor-ring"
+  ring.style.display = "block"
   document.body.appendChild(ring)
 
   let mouseX = 0,
@@ -451,17 +462,20 @@ function runPageEffects() {
   initScrambleTitle()
   initSearchPlaceholder()
   initKeywordBadges()
-  // Refresh cursor badge bindings
-  document.querySelectorAll("a, button").forEach((el) => {
-    el.addEventListener("mouseenter", () => {
-      const ring = document.getElementById("cursor-ring")
-      if (ring) ring.classList.add("expanded")
+  // Refresh cursor ring bindings (only on pointer devices)
+  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  if (!isTouch) {
+    document.querySelectorAll("a, button").forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        const ring = document.getElementById("cursor-ring")
+        if (ring) ring.classList.add("expanded")
+      })
+      el.addEventListener("mouseleave", () => {
+        const ring = document.getElementById("cursor-ring")
+        if (ring) ring.classList.remove("expanded")
+      })
     })
-    el.addEventListener("mouseleave", () => {
-      const ring = document.getElementById("cursor-ring")
-      if (ring) ring.classList.remove("expanded")
-    })
-  })
+  }
 }
 
 // One-time init (persists across SPA navigation)
