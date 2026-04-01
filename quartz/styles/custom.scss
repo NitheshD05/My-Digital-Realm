@@ -5,13 +5,11 @@
 //  NitheshD05 | Penetration Tester
 // ═══════════════════════════════════════════════════════════════
 
-// ── Fonts ───────────────────────────────────────────────────────
-@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fira+Code:wght@300;400;500;600&family=Orbitron:wght@400;700;900&display=swap");
-
 // ── CSS Variables Override ───────────────────────────────────────
+// Note: Share Tech Mono and Fira Code are loaded via quartz.config.ts typography settings
 :root {
   --font-mono: "Share Tech Mono", "IBM Plex Mono", monospace;
-  --font-orbitron: "Orbitron", monospace;
+  --font-orbitron: "Share Tech Mono", "IBM Plex Mono", monospace;
   --neon-green: #00ff41;
   --neon-cyan: #00d4ff;
   --neon-pink: #ff2d78;
