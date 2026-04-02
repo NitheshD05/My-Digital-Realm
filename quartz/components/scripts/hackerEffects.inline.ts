@@ -25,39 +25,40 @@ function initMatrixRain() {
   const chars =
     "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホ0123456789ABCDEF<>{}[]|/\\!@#$%^&*ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷｻｳｽﾊﾋｸ"
 
-  // Use larger font (fewer columns) on mobile for performance
   const isMobile = window.innerWidth < 800
-  const fontSize = isMobile ? 18 : 13
-  const fpsInterval = isMobile ? 80 : 45  // slower on mobile
+  const fontSize = isMobile ? 18 : 14
+  const fpsTarget = isMobile ? 10 : 18   // target FPS, not ms interval
 
   let columns = Math.floor(canvas.width / fontSize)
   let drops: number[] = Array(columns).fill(1).map(() => Math.random() * -100)
 
   function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.04)"
+    ctx.fillStyle = "rgba(0, 0, 0, 0.045)"
     ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-    for (let i = 0; i < drops.length; i++) {
-      // Leading char is brighter
-      const isHead = drops[i] > 0 && Math.random() > 0.8
-      ctx.fillStyle = isHead ? "#ffffff" : "#00ff41"
-      ctx.shadowBlur = isHead ? 8 : 3
-      ctx.shadowColor = "#00ff41"
-      ctx.font = `${fontSize}px "IBM Plex Mono", monospace`
+    // No shadowBlur — it is the single biggest canvas perf killer
+    ctx.font = `${fontSize}px monospace`
 
+    for (let i = 0; i < drops.length; i++) {
+      const isHead = drops[i] > 0 && Math.random() > 0.85
+      ctx.fillStyle = isHead ? "#7fff7f" : "#00c832"
       const char = chars[Math.floor(Math.random() * chars.length)]
       ctx.fillText(char, i * fontSize, drops[i] * fontSize)
-
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0
-      }
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0
       drops[i]++
     }
   }
 
-  const matrixInterval = setInterval(draw, fpsInterval)
-  // Store interval id for cleanup
-  ;(canvas as any)._matrixInterval = matrixInterval
+  // requestAnimationFrame + time throttle — pauses when tab is hidden
+  let lastFrame = 0
+  const interval = 1000 / fpsTarget
+  function loop(ts: number) {
+    requestAnimationFrame(loop)
+    if (ts - lastFrame < interval) return
+    lastFrame = ts
+    draw()
+  }
+  requestAnimationFrame(loop)
 }
 
 // ── Boot Sequence Overlay ────────────────────────────────────────

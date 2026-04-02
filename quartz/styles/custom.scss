@@ -29,9 +29,12 @@
   z-index: 0;
   opacity: 0.055;
   pointer-events: none;
+  transform: translateZ(0);  // force own GPU layer
+  will-change: contents;
 }
 
 // ── Scanlines Overlay ────────────────────────────────────────────
+// Static — no animation to avoid per-frame background-position repaints
 body::after {
   content: "";
   position: fixed;
@@ -48,12 +51,6 @@ body::after {
   );
   pointer-events: none;
   z-index: 99998;
-  animation: scanlineMove 12s linear infinite;
-}
-
-@keyframes scanlineMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100vh; }
 }
 
 // ── Custom Cursor (desktop / mouse only) ─────────────────────────
@@ -185,8 +182,10 @@ body::after {
   left: 0;
   right: 0;
   height: 26px;
-  background: rgba(0, 0, 0, 0.92);
+  background: rgba(0, 0, 0, 0.95);
   border-top: 1px solid rgba(0, 255, 65, 0.25);
+  transform: translateZ(0);  // own GPU layer
+  contain: layout style;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -225,8 +224,8 @@ body::after {
     height: 6px;
     background: var(--neon-green);
     border-radius: 50%;
-    box-shadow: var(--glow-green);
     animation: pulse 2s ease-in-out infinite;
+    will-change: opacity;
   }
 
   .sb-sep { color: #2a4a2a; }
@@ -248,8 +247,8 @@ body::after {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--neon-green); }
-  50% { opacity: 0.4; box-shadow: 0 0 12px var(--neon-green); }
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
 }
 
 @keyframes blink {
@@ -312,13 +311,14 @@ footer {
   }
 }
 
+// transform-only glitch — no text-shadow changes
 @keyframes titleGlitch {
-  0%,  88%, 100% { text-shadow: var(--glow-green); transform: translate(0); }
-  89% { text-shadow: -2px 0 var(--neon-pink), 2px 0 var(--neon-cyan); transform: translateX(2px); }
-  90% { text-shadow: 2px 0 var(--neon-pink), -2px 0 var(--neon-cyan); transform: translateX(-2px); }
-  91% { text-shadow: var(--glow-green); transform: translate(0); }
-  93% { text-shadow: -3px 0 var(--neon-cyan); transform: translateX(1px); }
-  94% { text-shadow: var(--glow-green); transform: translate(0); }
+  0%,  88%, 100% { transform: translate(0); }
+  89%            { transform: translateX(2px); }
+  90%            { transform: translateX(-2px); }
+  91%            { transform: translate(0); }
+  93%            { transform: translateX(1px); }
+  94%            { transform: translate(0); }
 }
 
 // ── Headings ─────────────────────────────────────────────────────
@@ -509,17 +509,17 @@ pre {
 
 // ── Left Sidebar ─────────────────────────────────────────────────
 .left.sidebar {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
+  background: rgba(4, 8, 4, 0.92);  // solid — no backdrop-filter (expensive)
   border-right: 1px solid rgba(0, 255, 65, 0.12);
   padding-right: 1rem;
+  contain: layout style;
 }
 
 // ── Right Sidebar ────────────────────────────────────────────────
 .right.sidebar {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
+  background: rgba(4, 8, 4, 0.92);
   border-left: 1px solid rgba(0, 255, 65, 0.08);
+  contain: layout style;
 }
 
 // ── Explorer (File Tree) ─────────────────────────────────────────
@@ -985,11 +985,10 @@ footer {
 
 // ── Article Body ─────────────────────────────────────────────────
 article {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(4, 6, 4, 0.88);
   border: 1px solid rgba(0, 255, 65, 0.07);
   border-radius: 8px;
   padding: 1.5rem;
-  backdrop-filter: blur(4px);
   position: relative;
 
   // Animated corner accent
@@ -1003,8 +1002,8 @@ article {
     border-top: 2px solid var(--neon-green);
     border-left: 2px solid var(--neon-green);
     border-radius: 6px 0 0 0;
-    box-shadow: var(--glow-green);
     animation: cornerGlow 4s ease-in-out infinite;
+    will-change: opacity;
   }
 
   &::after {
@@ -1017,14 +1016,15 @@ article {
     border-bottom: 2px solid var(--neon-cyan);
     border-right: 2px solid var(--neon-cyan);
     border-radius: 0 0 6px 0;
-    box-shadow: var(--glow-cyan);
     animation: cornerGlow 4s ease-in-out infinite reverse;
+    will-change: opacity;
   }
 }
 
+// opacity-only — GPU composited, no repaint
 @keyframes cornerGlow {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; box-shadow: 0 0 15px currentColor; }
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
 }
 
 // ── Folder / Tag Page Lists ───────────────────────────────────────
@@ -1137,16 +1137,17 @@ article ol li::marker {
   article h3::before { content: "> "; }
 }
 
-// ── Smooth Glow Breathing on Sidebar headers ──────────────────────
+// ── Glow Breathing on Sidebar headers — opacity only (GPU safe) ───
 .left.sidebar h1,
 .left.sidebar h3,
 .explorer-title {
   animation: breatheGlow 5s ease-in-out infinite;
+  will-change: opacity;
 }
 
 @keyframes breatheGlow {
-  0%, 100% { text-shadow: 0 0 6px rgba(0, 255, 65, 0.4); }
-  50% { text-shadow: 0 0 12px rgba(0, 255, 65, 0.7), 0 0 24px rgba(0, 255, 65, 0.2); }
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1; }
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -1159,20 +1160,23 @@ article ol li::marker {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: transform, opacity;
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
-// Headings slide from left
 .reveal-left {
   opacity: 0;
   transform: translateX(-20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: transform, opacity;
 }
 .reveal-left.visible {
   opacity: 1;
   transform: translateX(0);
+  will-change: auto;
 }
 
 // ── Animated Underline on Links ───────────────────────────────────
@@ -1242,12 +1246,13 @@ h1.article-title {
   animation: neonFlicker 8s steps(1) infinite;
 }
 
+// opacity-only flicker — no text-shadow toggling
 @keyframes neonFlicker {
-  0%, 92%, 100%  { text-shadow: var(--glow-cyan); opacity: 1; }
-  93%  { opacity: 0.7; text-shadow: none; }
-  94%  { opacity: 1;   text-shadow: var(--glow-cyan); }
-  95%  { opacity: 0.5; text-shadow: none; }
-  96%  { opacity: 1;   text-shadow: var(--glow-cyan); }
+  0%, 92%, 100% { opacity: 1; }
+  93%           { opacity: 0.6; }
+  94%           { opacity: 1; }
+  95%           { opacity: 0.4; }
+  96%           { opacity: 1; }
 }
 
 // ── Image Hover — Chromatic Aberration Glitch ─────────────────────
@@ -1422,19 +1427,20 @@ body::before {
   box-shadow: 0 0 12px rgba(0, 255, 65, 0.3), inset 0 0 8px rgba(0, 255, 65, 0.05);
   transition: all 0.2s ease;
   animation: btnPulse 3s ease-in-out infinite;
+  will-change: opacity;
 
   &:hover {
     background: rgba(0, 255, 65, 0.1);
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
     transform: scale(1.08);
   }
 
   span { pointer-events: none; }
 }
 
+// opacity-only pulse — no box-shadow animation
 @keyframes btnPulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 65, 0.25); }
-  50%       { box-shadow: 0 0 18px rgba(0, 255, 65, 0.5), 0 0 30px rgba(0, 255, 65, 0.15); }
+  0%, 100% { opacity: 0.75; }
+  50%       { opacity: 1; }
 }
 
 // ── Hacker Terminal Modal ─────────────────────────────────────────
@@ -1444,21 +1450,20 @@ body::before {
   right: 20px;
   width: min(480px, calc(100vw - 40px));
   height: 340px;
-  background: rgba(2, 5, 2, 0.97);
+  background: #020502;   // solid — removed backdrop-filter
   border: 1px solid rgba(0, 255, 65, 0.4);
   border-radius: 8px;
-  box-shadow: 0 0 40px rgba(0, 255, 65, 0.15), 0 20px 60px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
   z-index: 9989;
   display: flex;
   flex-direction: column;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  // Hidden by default
   opacity: 0;
   transform: translateY(12px) scale(0.97);
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
-  backdrop-filter: blur(8px);
+  will-change: transform, opacity;
 
   &.open {
     opacity: 1;
