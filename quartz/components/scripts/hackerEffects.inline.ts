@@ -220,27 +220,38 @@ function initScrambleTitle() {
 }
 
 // ── Cursor Trail ────────────────────────────────────────────────
-function initCursorTrail() {
-  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  if (isTouch) return
+// Module-level flag: listeners + rAF loop are set up only once,
+// but DOM elements are re-created after every SPA navigation.
+let _cursorReady = false
 
-  // Create elements only once
+function ensureCursorElements() {
   if (!document.getElementById("cursor-dot")) {
     const dot = document.createElement("div")
     dot.id = "cursor-dot"
     dot.style.display = "block"
     document.body.appendChild(dot)
-
+  }
+  if (!document.getElementById("cursor-ring")) {
     const ring = document.createElement("div")
     ring.id = "cursor-ring"
     ring.style.display = "block"
     document.body.appendChild(ring)
   }
+}
+
+function initCursorTrail() {
+  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  if (isTouch) return
+
+  ensureCursorElements()
+
+  if (_cursorReady) return   // listeners + animation already running
+  _cursorReady = true
 
   let mouseX = 0, mouseY = 0
-  let ringX = 0, ringY = 0
+  let ringX = 0,  ringY = 0
 
-  // Use getElementById every frame — survives SPA DOM morphing
+  // getElementById every event/frame so stale refs never cause invisibility
   document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX
     mouseY = e.clientY
@@ -248,14 +259,13 @@ function initCursorTrail() {
     if (d) { d.style.left = `${mouseX}px`; d.style.top = `${mouseY}px` }
   })
 
-  function animateRing() {
+  ;(function animateRing() {
     ringX += (mouseX - ringX) * 0.12
     ringY += (mouseY - ringY) * 0.12
     const r = document.getElementById("cursor-ring")
     if (r) { r.style.left = `${ringX}px`; r.style.top = `${ringY}px` }
     requestAnimationFrame(animateRing)
-  }
-  animateRing()
+  })()
 }
 
 // ── Typing Placeholder for Search ───────────────────────────────
@@ -733,13 +743,10 @@ function runPageEffects() {
   initH2Trace()
   init3DTilt()
 
-  // Re-attach cursor elements if SPA navigation removed them from body
+  // Re-create cursor elements if micromorph removed them during navigation
   const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
   if (!isTouch) {
-    const dot = document.getElementById("cursor-dot")
-    const ring = document.getElementById("cursor-ring")
-    if (dot && !document.body.contains(dot)) document.body.appendChild(dot)
-    if (ring && !document.body.contains(ring)) document.body.appendChild(ring)
+    ensureCursorElements()
 
     document.querySelectorAll("a, button").forEach((el) => {
       el.addEventListener("mouseenter", () => {
