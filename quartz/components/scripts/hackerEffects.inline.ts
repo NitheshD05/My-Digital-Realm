@@ -221,49 +221,41 @@ function initScrambleTitle() {
 
 // ── Cursor Trail ────────────────────────────────────────────────
 function initCursorTrail() {
-  // Skip on touch/mobile devices — they don't have a mouse cursor
   const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
   if (isTouch) return
 
-  if (document.getElementById("cursor-dot")) return
+  // Create elements only once
+  if (!document.getElementById("cursor-dot")) {
+    const dot = document.createElement("div")
+    dot.id = "cursor-dot"
+    dot.style.display = "block"
+    document.body.appendChild(dot)
 
-  const dot = document.createElement("div")
-  dot.id = "cursor-dot"
-  dot.style.display = "block"
-  document.body.appendChild(dot)
+    const ring = document.createElement("div")
+    ring.id = "cursor-ring"
+    ring.style.display = "block"
+    document.body.appendChild(ring)
+  }
 
-  const ring = document.createElement("div")
-  ring.id = "cursor-ring"
-  ring.style.display = "block"
-  document.body.appendChild(ring)
+  let mouseX = 0, mouseY = 0
+  let ringX = 0, ringY = 0
 
-  let mouseX = 0,
-    mouseY = 0
-  let ringX = 0,
-    ringY = 0
-
+  // Use getElementById every frame — survives SPA DOM morphing
   document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX
     mouseY = e.clientY
-    dot.style.left = `${mouseX}px`
-    dot.style.top = `${mouseY}px`
+    const d = document.getElementById("cursor-dot")
+    if (d) { d.style.left = `${mouseX}px`; d.style.top = `${mouseY}px` }
   })
 
-  // Smooth ring follow
   function animateRing() {
     ringX += (mouseX - ringX) * 0.12
     ringY += (mouseY - ringY) * 0.12
-    ring.style.left = `${ringX}px`
-    ring.style.top = `${ringY}px`
+    const r = document.getElementById("cursor-ring")
+    if (r) { r.style.left = `${ringX}px`; r.style.top = `${ringY}px` }
     requestAnimationFrame(animateRing)
   }
   animateRing()
-
-  // Expand ring on link hover
-  document.querySelectorAll("a, button").forEach((el) => {
-    el.addEventListener("mouseenter", () => ring.classList.add("expanded"))
-    el.addEventListener("mouseleave", () => ring.classList.remove("expanded"))
-  })
 }
 
 // ── Typing Placeholder for Search ───────────────────────────────
@@ -741,17 +733,22 @@ function runPageEffects() {
   initH2Trace()
   init3DTilt()
 
-  // Refresh cursor ring bindings (only on pointer devices)
+  // Re-attach cursor elements if SPA navigation removed them from body
   const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
   if (!isTouch) {
+    const dot = document.getElementById("cursor-dot")
+    const ring = document.getElementById("cursor-ring")
+    if (dot && !document.body.contains(dot)) document.body.appendChild(dot)
+    if (ring && !document.body.contains(ring)) document.body.appendChild(ring)
+
     document.querySelectorAll("a, button").forEach((el) => {
       el.addEventListener("mouseenter", () => {
-        const ring = document.getElementById("cursor-ring")
-        if (ring) ring.classList.add("expanded")
+        const r = document.getElementById("cursor-ring")
+        if (r) r.classList.add("expanded")
       })
       el.addEventListener("mouseleave", () => {
-        const ring = document.getElementById("cursor-ring")
-        if (ring) ring.classList.remove("expanded")
+        const r = document.getElementById("cursor-ring")
+        if (r) r.classList.remove("expanded")
       })
     })
   }
