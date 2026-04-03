@@ -1,109 +1,93 @@
-# Nithesh Dhakshanamoorthy
+# NITHESH DHAKSHANAMOORTHY
 
-nitheshdm05@gmail.com | [LinkedIn](https://www.linkedin.com/in/nithesh-dhakshanamoorthy-2541111b3) | [GitHub](https://github.com/NitheshD05) | [HTB Profile](https://app.hackthebox.com/profile/1701603) | [Visit My Website](https://nitheshd05.github.io/My-Digital-Realm/) | Chennai, India
+**Penetration Tester | Security Researcher | MSc Information Security – Royal Holloway, University of London (Top 10 globally)**
 
----
-## Summary
-
-SOC Engineer at DigitalTrack Solutions with an MSc in Information Security and a B.Eng in Computer Science. Experienced in threat monitoring, incident response, and penetration testing. Strong programming background in Python, C, and web technologies. Ranked in the top 3% on TryHackMe and top 400 globally on Hack The Box, demonstrating continuous hands-on practice in both offensive and defensive security.
+Chennai, India | nithesh.jobapl@outlook.com | [LinkedIn](https://www.linkedin.com/in/nitheshd05) | [GitHub](https://github.com/NitheshD05) | [Portfolio](https://nitheshd05.github.io/My-Digital-Realm/)
 
 ---
-## Work Experience
 
-**SOC Engineer**  
-DigitalTrack Solutions, Chennai, India  
-*Current*
-
-- Monitor security events and alerts across SIEM platforms, investigating and triaging incidents.
-- Perform threat hunting, log analysis, and incident response activities.
-- Identify, analyse, and respond to security threats, vulnerabilities, and breaches.
-- Collaborate with internal teams to remediate security incidents and improve security posture.
-- Develop and refine detection rules and playbooks to enhance SOC operations.
-
-**Software Developer Intern**  
-Tech Affinity Global, Bangalore, India  
-Oct 2021 – Apr 2022
-
-- Developed web applications, both frontend and backend.
-- Created APIs.
-- Improved company website performance by 5% on mobile and 12% on desktop.
+**HTB Global Top 400** | **TryHackMe Top 3% (4M+ users)** | **5,000+ professionals trained** | **First-Class Honours B.E. CSE**
 
 ---
+
+## Professional Summary
+
+Hands-on penetration tester with an MSc in Information Security from Royal Holloway, University of London — NCSC/GCHQ-accredited and among the world's most respected InfoSec programmes. Proven across web application, network, and Active Directory assessments using real-world adversarial techniques. Experienced in CVSS-rated pentest reporting, proof-of-concept exploit development, and translating technical risk into clear, actionable findings for clients.
+
+---
+
+## Professional Experience
+
+**Penetration Tester | VAPT Specialist** — Remote  
+*January 2024 – Present*
+
+- Conducted 10+ end-to-end web and network penetration tests (OWASP Top 10), identifying auth bypasses, injection flaws, access control weaknesses, and misconfigurations.
+- Performed Active Directory assessments targeting Kerberoasting, AS-REP Roasting, privilege escalation, lateral movement, and credential exposure, producing full attack-chain documentation.
+- Executed manual post-exploitation (enumeration, persistence, privilege escalation) to validate real-world business impact beyond automated scanner output.
+- Delivered cybersecurity workshops to 5,000+ participants across corporate, academic, and government sectors covering pentest methodology, threat modelling, and defensive practices.
+- Produced structured pentest reports with CVSS-based severity ratings, proof-of-concept documentation, and prioritised remediation recommendations tailored to client risk appetite.
+
+**Guest Lecturer** — Royal Holloway Cyber Security Society, London, UK  
+*April 2025*
+
+Topics: Penetration Testing in the Modern Threat Landscape · Containerisation Security · Passwordless Authentication & Passkeys.
+
+**Cyber Security Trainer** — Cyber Crime India, Puducherry  
+*July 2024 – January 2025*
+
+Assisted in cybercrime investigations; delivered threat detection & incident response training to law enforcement; contributed to security policy and digital literacy campaigns.
+
+**Software Developer Intern** — Tech Affinity Global, Bangalore  
+*October 2021 – April 2022*
+
+Built full-stack apps with REST APIs; achieved 12% desktop / 5% mobile performance gains through targeted optimisation. Collaborated cross-functionally under tight timelines.
+
+---
+
 ## Education
 
-**Masters in Information Security**  
-Royal Holloway University of London, United Kingdom  
-Sept 2022 – Sept 2023  
+**MSc Information Security** — Royal Holloway, University of London  
+*2022 – 2023*  
+NCSC/GCHQ-accredited | Modules: Cryptography, Network Security, Penetration Testing, Incident Response, Cyber Forensics, Software Security
 
-Key Modules: Cryptography, Network Security, Cyber Security, Cyber Forensics, Software Security, Penetration Testing, Security Management, Incident Response
-
-**Bachelor of Engineering in Computer Science and Engineering**  
-St. Joseph's Institute of Technology – Affiliated to Anna University, Chennai, India  
-Aug 2017 – Apr 2021  
-
-Key Modules: Data Structures, Design and Analysis of Algorithms, Object-Oriented Programming, Software Engineering, Communication Engineering, Artificial Intelligence, Software Testing, Database Management System
+**B.E. Computer Science & Engineering** — First-Class Honours  
+St. Joseph's Institute of Technology, Chennai  
+*2017 – 2021*  
+Modules: Data Structures, Algorithms, OOP, AI, Database Systems | Semi-Finalist – Smart India Hackathon 2019
 
 ---
+
 ## Technical Skills
 
-SOC Operations *|* SIEM *|* Threat Hunting *|* Incident Response *|* Penetration Testing *|* Network Security *|* Linux *|* Windows *|* Active Directory *|* Python *|* C *|* C++ *|* Burp Suite *|* Metasploit *|* Nmap *|* Wireshark *|* ISO 27001 *|* CTF
+| Category | Skills |
+|---|---|
+| **Pentesting** | VAPT, Web App, Network, Active Directory, Privilege Escalation, Post-Exploitation, Lateral Movement |
+| **Tools** | Burp Suite, Metasploit, Nmap, Wireshark, BloodHound, Impacket, Nikto, Netcat |
+| **Languages** | Python, C, C++, JavaScript, Bash, HTML/CSS |
+| **Platforms** | Kali Linux, Windows Server, Docker, Git, VMware |
+| **Frameworks** | OWASP Top 10, CVSS v3.1, MITRE ATT&CK, ISO 27001, PTES |
 
 ---
-## Soft Skills
 
-- **Communication:** Organised numerous symposiums and events, enhancing communication skills.
-- **Teamwork:** Collaborated across IT and security teams in SOC and development roles.
-- **Problem Solving:** Investigates and resolves complex security incidents under time pressure.
-- **Analytical Thinking:** Threat analysis and log correlation across large datasets.
-- **Leadership:** Led college events and symposiums, organising and leading committee members.
-
----
 ## Certifications
 
-- Information Security: Context and Introduction | University of London
-- Introduction to Cyber Attacks | New York University
-- Network Security & Database Vulnerabilities | IBM
-- Penetration Testing, Incident Response and Forensics | IBM
+Information Security: Context & Introduction (Univ. of London) | Introduction to Cyber Attacks (NYU) | Network Security & Database Vulnerabilities (IBM) | Penetration Testing, Incident Response & Forensics (IBM)
+
+*Currently pursuing: CPTS (Certified Penetration Testing Specialist) from Hack The Box*
 
 ---
-## Research Experience
 
-**Dark Web Analysis**  
-Oct 2021 – Dec 2021
+## Projects
 
-- Conducted a survey on public awareness of the Dark Web.
-- Collected responses from over 300 participants.
-- Organised and processed the data.
+**Wi-Fi Analyzer** — Python tool automating Wi-Fi pentest workflows using Plux algorithm (reconnaissance, scanning, vuln identification).  
+[github.com/NitheshD05/Wifi-analyser](https://github.com/NitheshD05/Wifi-analyser)
 
----
-## Academic Projects
-
-**Wi-Fi Analyzer using Plux Algorithm**  
-Oct 2020 – Mar 2021
-
-- Developed a Python-based tool for Wi-Fi network penetration testing.
-- Automated pre-configuration for different attack types.
-- Identified vulnerabilities in Wi-Fi networks.
-- [Github Repo](https://github.com/NitheshD05/Wifi-analyser)
-
-**IoT Security: Safeguarding the Connected World**  
-Jun 2023 – Aug 2023
-
-- Developed a Python-based penetration testing tool for IoT devices.
-- Focused on protocols such as CoAP, UPnP/SSDP, and MQTT.
-- Identified and addressed vulnerabilities in IoT ecosystems.
-- [Github Repo](https://github.com/NitheshD05/IOT-Security)
+**IoT Security Toolkit** — Assessed CoAP, UPnP & MQTT protocols, documented vulnerabilities with risk ratings and remediation guidance.  
+[github.com/NitheshD05/IOT-Security](https://github.com/NitheshD05/IOT-Security)
 
 ---
-## Achievements
 
-- SOC Engineer at DigitalTrack Solutions, Chennai.
-- First-class graduate in Bachelor's degree.
-- Top 3% competitor on TryHackMe among 4 million users.
-- Top 400 in HTB — Pro Hacker ranking.
-- Semi-finalist at Smart India Hackathon 2019.
+## Online Profiles
 
----
-## Activities
-
-Volunteered at various NGOs, serving elders, children with disabilities, and abandoned individuals.
+**LinkedIn:** [linkedin.com/in/nitheshd05](https://www.linkedin.com/in/nitheshd05) | **GitHub:** [github.com/NitheshD05](https://github.com/NitheshD05)  
+**HTB:** [app.hackthebox.com/users/1701603](https://app.hackthebox.com/users/1701603) | **Portfolio:** [nitheshd05.github.io/My-Digital-Realm](https://nitheshd05.github.io/My-Digital-Realm/)

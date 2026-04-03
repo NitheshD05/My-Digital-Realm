@@ -5,13 +5,10 @@
 //  NitheshD05 | Penetration Tester
 // ═══════════════════════════════════════════════════════════════
 
-// ── Prevent horizontal layout shift from scrollbar ──────────────
-// overflow-y: scroll always reserves scrollbar space, preventing
-// content from shifting when navigating between short and long pages.
-// Do NOT use overflow-x: hidden on body — iOS Safari breaks position:fixed.
-html {
-  overflow-y: scroll;
-}
+// NOTE: Do NOT override html overflow or width here.
+// Quartz base.scss sets html { overflow-x: hidden; width: 100vw }
+// and positions sidebars with calc(100vw - $pageWidth).
+// Any html overflow override breaks that sidebar math.
 
 // ── CSS Variables Override ───────────────────────────────────────
 // Note: Share Tech Mono and Fira Code are loaded via quartz.config.ts typography settings
