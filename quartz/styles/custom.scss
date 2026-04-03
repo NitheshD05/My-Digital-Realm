@@ -6,15 +6,11 @@
 // ═══════════════════════════════════════════════════════════════
 
 // ── Prevent horizontal layout shift from scrollbar ──────────────
-// scrollbar-gutter reserves space for the scrollbar at all times,
-// stopping the content from shifting left when the bar appears.
-// overflow-x: hidden kills any ghost horizontal scroll (e.g. from 100vw).
+// overflow-y: scroll always reserves scrollbar space, preventing
+// content from shifting when navigating between short and long pages.
+// Do NOT use overflow-x: hidden on body — iOS Safari breaks position:fixed.
 html {
-  scrollbar-gutter: stable;
-  overflow-x: hidden;
-}
-body {
-  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 // ── CSS Variables Override ───────────────────────────────────────
@@ -1139,13 +1135,13 @@ article ol li::marker {
 }
 .reveal-left {
   opacity: 0;
-  transform: translateX(-20px);
+  transform: translateY(10px);   // subtle upward fade — no horizontal shift
   transition: opacity 0.5s ease, transform 0.5s ease;
   will-change: transform, opacity;
 }
 .reveal-left.visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
   will-change: auto;
 }
 
@@ -1613,7 +1609,8 @@ a.internal {
 }
 
 // ── Subtle dot grid on page background ────────────────────────────
-// Layered on top of theme background-color via background-image
+// background-attachment: fixed keeps dots locked to viewport like the
+// matrix canvas, so they don't scroll and create a parallax clash.
 body {
   background-image: radial-gradient(
     circle,
@@ -1621,6 +1618,12 @@ body {
     transparent 1px
   );
   background-size: 28px 28px;
+  background-attachment: fixed;
+}
+
+// Disable fixed attachment on mobile — causes repaints on every scroll frame
+@media screen and (max-width: 800px) {
+  body { background-attachment: scroll; }
 }
 
 // ── Reading Progress Bar ──────────────────────────────────────────
