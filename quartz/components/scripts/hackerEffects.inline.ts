@@ -520,8 +520,8 @@ function initTOCHighlight() {
     const active = tocLinks.get(id)
     if (active) {
       active.classList.add("toc-active")
-      // Scroll the TOC link into view gently
-      active.scrollIntoView({ block: "nearest", behavior: "smooth" })
+      // NOTE: do NOT call scrollIntoView here — it scrolls the main viewport
+      // horizontally toward the right sidebar, causing the page to jump left.
     }
   }
 
