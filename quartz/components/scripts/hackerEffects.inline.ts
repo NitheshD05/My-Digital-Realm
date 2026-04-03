@@ -219,41 +219,6 @@ function initScrambleTitle() {
   }, 28)
 }
 
-// ── Cursor Trail ────────────────────────────────────────────────
-// cursor-dot and cursor-ring are rendered in HackerEffects.tsx so they exist
-// in every page's static HTML. Micromorph preserves them across SPA navigation
-// because it sees matching IDs in both old and new DOM — no re-creation needed.
-
-function initCursorTrail() {
-  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  if (isTouch) return
-
-  // Show the elements (CSS hides them by default)
-  const dot = document.getElementById("cursor-dot")
-  const ring = document.getElementById("cursor-ring")
-  if (!dot || !ring) return
-  dot.style.display = "block"
-  ring.style.display = "block"
-
-  let mouseX = 0, mouseY = 0
-  let ringX = 0,  ringY = 0
-
-  document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX
-    mouseY = e.clientY
-    // Always look up by ID — micromorph may have morphed the element reference
-    const d = document.getElementById("cursor-dot")
-    if (d) { d.style.left = `${mouseX}px`; d.style.top = `${mouseY}px` }
-  })
-
-  ;(function animateRing() {
-    ringX += (mouseX - ringX) * 0.12
-    ringY += (mouseY - ringY) * 0.12
-    const r = document.getElementById("cursor-ring")
-    if (r) { r.style.left = `${ringX}px`; r.style.top = `${ringY}px` }
-    requestAnimationFrame(animateRing)
-  })()
-}
 
 // ── Typing Placeholder for Search ───────────────────────────────
 function initSearchPlaceholder() {
@@ -730,31 +695,12 @@ function runPageEffects() {
   initH2Trace()
   init3DTilt()
 
-  // Ensure cursor display is set on each page (CSS default is none)
-  const isTouch = !window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  if (!isTouch) {
-    const dot = document.getElementById("cursor-dot")
-    const ring = document.getElementById("cursor-ring")
-    if (dot) dot.style.display = "block"
-    if (ring) ring.style.display = "block"
 
-    document.querySelectorAll("a, button").forEach((el) => {
-      el.addEventListener("mouseenter", () => {
-        const r = document.getElementById("cursor-ring")
-        if (r) r.classList.add("expanded")
-      })
-      el.addEventListener("mouseleave", () => {
-        const r = document.getElementById("cursor-ring")
-        if (r) r.classList.remove("expanded")
-      })
-    })
-  }
 }
 
 // One-time init (persists across SPA navigation)
 initMatrixRain()
 initBootSequence()
-initCursorTrail()
 initStatusBar()
 initPacketsCounter()
 initFakeIP()
