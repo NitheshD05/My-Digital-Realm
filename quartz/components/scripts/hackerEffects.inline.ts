@@ -471,6 +471,72 @@ function initPacketsCounter() {
   }, 400)
 }
 
+// ── Reading Progress Bar ───────────────────────────────────────
+function initReadingProgress() {
+  let bar = document.getElementById("read-progress")
+  if (!bar) {
+    bar = document.createElement("div")
+    bar.id = "read-progress"
+    document.body.prepend(bar)
+  }
+  // Reset on every page
+  bar.style.width = "0%"
+
+  function updateProgress() {
+    const scrolled = window.scrollY
+    const total = document.body.scrollHeight - window.innerHeight
+    if (total <= 0) {
+      bar!.style.width = "0%"
+      return
+    }
+    bar!.style.width = Math.min(100, (scrolled / total) * 100) + "%"
+  }
+
+  window.addEventListener("scroll", updateProgress, { passive: true })
+  updateProgress()
+}
+
+// ── TOC Active Section Highlight ──────────────────────────────
+function initTOCHighlight() {
+  const headings = document.querySelectorAll<HTMLElement>("article h2, article h3")
+  if (!headings.length) return
+
+  // Build a map: heading id → toc link
+  const tocLinks = new Map<string, HTMLAnchorElement>()
+  document.querySelectorAll<HTMLAnchorElement>(".toc-list-item a, #toc a").forEach((a) => {
+    const href = a.getAttribute("href")
+    if (href?.startsWith("#")) tocLinks.set(href.slice(1), a)
+  })
+  if (!tocLinks.size) return
+
+  let activeId = ""
+
+  const setActive = (id: string) => {
+    if (id === activeId) return
+    activeId = id
+    tocLinks.forEach((a) => a.classList.remove("toc-active"))
+    const active = tocLinks.get(id)
+    if (active) {
+      active.classList.add("toc-active")
+      // Scroll the TOC link into view gently
+      active.scrollIntoView({ block: "nearest", behavior: "smooth" })
+    }
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActive((entry.target as HTMLElement).id)
+        }
+      })
+    },
+    { rootMargin: "0px 0px -60% 0px", threshold: 0 },
+  )
+
+  headings.forEach((h) => { if (h.id) observer.observe(h) })
+}
+
 // ── Animate h2 underline trace on scroll ───────────────────────
 function initH2Trace() {
   const observer = new IntersectionObserver(
@@ -685,6 +751,35 @@ function initKonamiCode() {
   }
 }
 
+// ── Sidebar Nav Link Scramble on Hover ────────────────────────
+function initNavScramble() {
+  const glitchChars = "01!@#$%^&*<>{}[]|/\\"
+  document.querySelectorAll<HTMLElement>(".sidebar a").forEach((link) => {
+    if (link.dataset.scramble) return // already wired
+    link.dataset.scramble = "1"
+    const original = link.textContent || ""
+
+    link.addEventListener("mouseenter", () => {
+      let i = 0
+      const id = setInterval(() => {
+        link.textContent = original
+          .split("")
+          .map((c, idx) => {
+            if (c === " ") return " "
+            if (idx < i) return original[idx]
+            return glitchChars[Math.floor(Math.random() * glitchChars.length)]
+          })
+          .join("")
+        i += 1.5
+        if (i >= original.length) {
+          clearInterval(id)
+          link.textContent = original
+        }
+      }, 28)
+    })
+  })
+}
+
 // ── Init All Effects ────────────────────────────────────────────
 function runPageEffects() {
   initGlitchTitle()
@@ -694,8 +789,9 @@ function runPageEffects() {
   initScrollReveal()
   initH2Trace()
   init3DTilt()
-
-
+  initReadingProgress()
+  initTOCHighlight()
+  initNavScramble()
 }
 
 // One-time init (persists across SPA navigation)

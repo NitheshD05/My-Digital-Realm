@@ -53,21 +53,21 @@ body::after {
   z-index: 99998;
 }
 
-// ── Custom Cursor — pure CSS SVG (desktop / pointer devices only) ──
-// No DOM elements needed — 100% CSS, survives SPA navigation forever.
+// ── Custom Cursor — pure CSS SVG tactical reticle ──────────────────
+// Corner-bracket targeting reticle. Pure CSS = survives SPA nav forever.
 @media (hover: hover) and (pointer: fine) {
-  // Default: neon-green targeting reticle
+  // Default: green tactical corner-bracket reticle + mini crosshair
   * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2300ff41' stroke-width='1.5' opacity='0.9'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%2300ff41'/%3E%3Cline x1='16' y1='2' x2='16' y2='9' stroke='%2300ff41' stroke-width='1.5'/%3E%3Cline x1='16' y1='23' x2='16' y2='30' stroke='%2300ff41' stroke-width='1.5'/%3E%3Cline x1='2' y1='16' x2='9' y2='16' stroke='%2300ff41' stroke-width='1.5'/%3E%3Cline x1='23' y1='16' x2='30' y2='16' stroke='%2300ff41' stroke-width='1.5'/%3E%3C/svg%3E") 16 16, crosshair !important;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpolyline points='10,4 4,4 4,10' fill='none' stroke='%2300ff41' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Cpolyline points='22,4 28,4 28,10' fill='none' stroke='%2300ff41' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Cpolyline points='4,22 4,28 10,28' fill='none' stroke='%2300ff41' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Cpolyline points='28,22 28,28 22,28' fill='none' stroke='%2300ff41' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%2300ff41'/%3E%3Cline x1='13' y1='16' x2='14.5' y2='16' stroke='%2300ff41' stroke-width='1' stroke-linecap='round'/%3E%3Cline x1='17.5' y1='16' x2='19' y2='16' stroke='%2300ff41' stroke-width='1' stroke-linecap='round'/%3E%3Cline x1='16' y1='13' x2='16' y2='14.5' stroke='%2300ff41' stroke-width='1' stroke-linecap='round'/%3E%3Cline x1='16' y1='17.5' x2='16' y2='19' stroke='%2300ff41' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E") 16 16, crosshair !important;
   }
 
-  // Pointer: cyan reticle for links and buttons
+  // Pointer: cyan reticle + dashed lock-on ring (target acquired)
   a, button, [role="button"], label, select,
   input[type="submit"], input[type="button"], input[type="reset"] {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2300d4ff' stroke-width='1.5' opacity='0.9'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%2300d4ff'/%3E%3Cline x1='16' y1='2' x2='16' y2='9' stroke='%2300d4ff' stroke-width='2'/%3E%3Cline x1='16' y1='23' x2='16' y2='30' stroke='%2300d4ff' stroke-width='2'/%3E%3Cline x1='2' y1='16' x2='9' y2='16' stroke='%2300d4ff' stroke-width='2'/%3E%3Cline x1='23' y1='16' x2='30' y2='16' stroke='%2300d4ff' stroke-width='2'/%3E%3C/svg%3E") 16 16, pointer !important;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%2300d4ff' stroke-width='1' stroke-dasharray='3,2' opacity='0.7'/%3E%3Cpolyline points='10,4 4,4 4,10' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Cpolyline points='22,4 28,4 28,10' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Cpolyline points='4,22 4,28 10,28' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Cpolyline points='28,22 28,28 22,28' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='square' stroke-linejoin='miter'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2300d4ff'/%3E%3C/svg%3E") 16 16, pointer !important;
   }
 
-  // Text input: keep beam cursor for legibility
+  // Text inputs: keep beam cursor for legibility
   input[type="text"], input[type="search"], input[type="email"],
   input[type="password"], textarea {
     cursor: text !important;
@@ -1582,4 +1582,146 @@ body::before {
 a.internal {
   transform-style: preserve-3d;
   will-change: transform;
+}
+
+// ══════════════════════════════════════════════════════════════════
+//  EXTRA COOL / QUIRKY ADDITIONS
+// ══════════════════════════════════════════════════════════════════
+
+// ── Text Selection — neon green highlight ─────────────────────────
+::selection {
+  background: var(--neon-green);
+  color: #000;
+  text-shadow: none;
+}
+::-moz-selection {
+  background: var(--neon-green);
+  color: #000;
+  text-shadow: none;
+}
+
+// ── Subtle dot grid on page background ────────────────────────────
+// Layered on top of theme background-color via background-image
+body {
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 255, 65, 0.07) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+// ── Reading Progress Bar ──────────────────────────────────────────
+#read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+  box-shadow: 0 0 6px var(--neon-green);
+  z-index: 999999;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+// ── Code Block — Fake Terminal Header ────────────────────────────
+// pre::before injects a macOS-style dot bar above every code block
+pre {
+  position: relative;
+  padding-top: 2.2rem !important;
+  margin-top: 1.5rem !important;
+  overflow: visible !important;
+
+  &::before {
+    content: "⬤  ⬤  ⬤\00a0\00a0\00a0\00a0terminal";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.3rem 0.75rem;
+    background: rgba(0, 255, 65, 0.05);
+    border-bottom: 1px solid rgba(0, 255, 65, 0.12);
+    border-radius: 6px 6px 0 0;
+    font-size: 0.62rem;
+    color: rgba(0, 255, 65, 0.4);
+    letter-spacing: 0.06em;
+    font-family: var(--font-mono);
+  }
+}
+
+// ── TOC Active Section Highlight ─────────────────────────────────
+// JS adds .toc-active to the matching TOC link
+.toc-list-item a.toc-active,
+#toc a.toc-active {
+  color: var(--neon-green) !important;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.5);
+  position: relative;
+
+  &::before {
+    content: "▶";
+    font-size: 0.6em;
+    margin-right: 4px;
+    opacity: 0.8;
+    vertical-align: middle;
+  }
+}
+
+// ── Sidebar Nav Link — hover data-decrypt animation ───────────────
+// JS-driven scramble. CSS just sets the color + transition baseline.
+.sidebar a[data-scramble] {
+  transition: color 0.15s ease;
+}
+
+// ── Nav Flash on page transition ─────────────────────────────────
+.nav-flash {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 255, 65, 0.035);
+  pointer-events: none;
+  z-index: 999998;
+  animation: navFlashAnim 0.35s ease forwards;
+}
+
+@keyframes navFlashAnim {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+// ── Tag cloud — staggered neon pulse on hover ─────────────────────
+.tags a.tag-link {
+  display: inline-block;
+  transition: transform 0.18s ease, color 0.18s ease;
+
+  &:hover {
+    color: var(--neon-green) !important;
+    transform: translateY(-3px) scale(1.08) !important;
+  }
+}
+
+// ── Sidebar folder icon — neon on open ───────────────────────────
+.folder-icon svg {
+  transition: filter 0.2s ease;
+}
+.folder-outer.open > .folder-container .folder-icon svg {
+  filter: drop-shadow(0 0 4px var(--neon-green));
+}
+
+// ── Scrollbar — neon styled ───────────────────────────────────────
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #040604;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 65, 0.3);
+  border-radius: 3px;
+
+  &:hover {
+    background: rgba(0, 255, 65, 0.55);
+  }
 }
