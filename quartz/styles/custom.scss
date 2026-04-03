@@ -5,6 +5,18 @@
 //  NitheshD05 | Penetration Tester
 // ═══════════════════════════════════════════════════════════════
 
+// ── Prevent horizontal layout shift from scrollbar ──────────────
+// scrollbar-gutter reserves space for the scrollbar at all times,
+// stopping the content from shifting left when the bar appears.
+// overflow-x: hidden kills any ghost horizontal scroll (e.g. from 100vw).
+html {
+  scrollbar-gutter: stable;
+  overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
+}
+
 // ── CSS Variables Override ───────────────────────────────────────
 // Note: Share Tech Mono and Fira Code are loaded via quartz.config.ts typography settings
 :root {
@@ -24,8 +36,8 @@
   position: fixed !important;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;   // not 100vw — avoids ghost horizontal scroll on Windows
+  height: 100%;
   z-index: 0;
   opacity: 0.055;
   pointer-events: none;
@@ -1631,7 +1643,7 @@ pre {
   position: relative;
   padding-top: 2.2rem !important;
   margin-top: 1.5rem !important;
-  overflow: visible !important;
+  overflow-x: auto !important;   // keep horizontal scroll for code; don't use overflow:visible
 
   &::before {
     content: "⬤  ⬤  ⬤\00a0\00a0\00a0\00a0terminal";
