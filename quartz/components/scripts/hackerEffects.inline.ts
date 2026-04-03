@@ -98,6 +98,8 @@ function initBootSequence() {
     "[PRIV] Elevating privileges.................. OK",
     "",
     "[INFO] OPERATOR : NitheshD05",
+    "[INFO] ROLE     : SOC Engineer @ DigitalTrack Solutions",
+    "[INFO] LOCATION : Chennai, India",
     "[INFO] RANK     : Top 400 globally on HackTheBox",
     "[INFO] CERT     : MSc Information Security",
     "",
@@ -401,7 +403,7 @@ function initConsoleEgg() {
     "%c  ██████╗██╗   ██╗██████╗ ███████╗██████╗     ██████╗ ███████╗ █████╗ ██╗     ███╗   ███╗  ",
     style,
   )
-  console.log("%c  NitheshD05 | Penetration Tester | MSc Information Security  ", style)
+  console.log("%c  NitheshD05 | SOC Engineer @ DigitalTrack Solutions | Chennai  ", style)
   console.log("%c  Top 400 Globally on HackTheBox  ", style)
   console.log("%c  ⚠  This site is protected. Unauthorized access is prohibited.  ", styleWarn)
   console.log("%c  GitHub: https://github.com/NitheshD05  ", style)
@@ -596,7 +598,7 @@ Type <span class="ht-cmd">help</span> for available commands.
       `Available commands:\n  <span class="ht-cmd">whoami</span>     — About NitheshD05\n  <span class="ht-cmd">skills</span>     — Skill proficiency\n  <span class="ht-cmd">htb</span>        — HackTheBox stats\n  <span class="ht-cmd">contact</span>    — Get in touch\n  <span class="ht-cmd">certs</span>      — Certifications\n  <span class="ht-cmd">ls</span>         — List site sections\n  <span class="ht-cmd">clear</span>      — Clear terminal\n  <span class="ht-cmd">exit</span>       — Close terminal`,
 
     whoami: () =>
-      `<span class="ht-green">NitheshD05</span> — Nithesh Dhakshanamoorthy\nMSc Information Security | Penetration Tester\nOrigin: India → UK\nSpecialisation: Web &amp; Network Penetration Testing\nVisa: Graduate Route (UK)`,
+      `<span class="ht-green">NitheshD05</span> — Nithesh Dhakshanamoorthy\nSOC Engineer @ DigitalTrack Solutions\nLocation: Chennai, India\nMSc Information Security | Penetration Tester\nSpecialisation: SOC Operations &amp; Web/Network Pentesting`,
 
     skills: () =>
       `<span class="ht-cyan">[SKILL PROFICIENCY SCAN]</span>\n\nPenetration Testing  <span class="ht-bar" data-val="95">░░░░░░░░░░░░░░░░░░░░</span> 95%\nNetwork Security     <span class="ht-bar" data-val="85">░░░░░░░░░░░░░░░░░░░░</span> 85%\nWeb App Testing      <span class="ht-bar" data-val="88">░░░░░░░░░░░░░░░░░░░░</span> 88%\nActive Directory     <span class="ht-bar" data-val="78">░░░░░░░░░░░░░░░░░░░░</span> 78%\nPython / Scripting   <span class="ht-bar" data-val="82">░░░░░░░░░░░░░░░░░░░░</span> 82%\nCTF / HTB            <span class="ht-bar" data-val="90">░░░░░░░░░░░░░░░░░░░░</span> 90%`,
@@ -608,7 +610,7 @@ Type <span class="ht-cmd">help</span> for available commands.
       `<span class="ht-cyan">[CONTACT INFO]</span>\n\nEmail    : nitheshdm05@gmail.com\nLinkedIn : linkedin.com/in/nithesh-dhakshanamoorthy-2541111b3\nGitHub   : github.com/NitheshD05\nHTB      : app.hackthebox.com/profile/1701603\nX        : x.com/05Nithesh`,
 
     certs: () =>
-      `<span class="ht-cyan">[CERTIFICATIONS &amp; PROGRESS]</span>\n\n[✓] MSc Information Security (UK)\n[✓] Top 3% TryHackMe (4M+ users)\n[✓] Top 400 HackTheBox Globally\n[~] CPTS — <span class="ht-green">In Progress</span>`,
+      `<span class="ht-cyan">[CERTIFICATIONS &amp; PROGRESS]</span>\n\n[✓] MSc Information Security — Royal Holloway, University of London\n[✓] Top 3% TryHackMe (4M+ users)\n[✓] Top 400 HackTheBox Globally\n[✓] SOC Engineer @ DigitalTrack Solutions\n[~] CPTS — <span class="ht-green">In Progress</span>`,
 
     ls: () =>
       `<span class="ht-green">drwxr-xr-x</span>  CV/\n<span class="ht-green">drwxr-xr-x</span>  HTB-Writeups/\n<span class="ht-green">drwxr-xr-x</span>  Blogs/\n<span class="ht-green">-rw-r--r--</span>  Cover-Letter.md\n<span class="ht-green">-rw-r--r--</span>  Cheat-Sheet.md\n<span class="ht-green">-rw-r--r--</span>  Command-Dump.md`,

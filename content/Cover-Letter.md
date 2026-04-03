@@ -1,13 +1,18 @@
-**Passionate Penetration Tester Seeking Opportunities**
+**SOC Engineer | Cybersecurity Professional**
 
 Hi there,
 
-I’m Nithesh Dhakshanamoorthy, a recent MSc Information Security graduate from Royal Holloway, University of London. With a graduate route visa valid until January 2026, I have the legal right to work in the UK. My enthusiasm for offensive security and penetration testing drives me to continuously expand my knowledge and skills in this field.
+I'm Nithesh Dhakshanamoorthy, a cybersecurity professional currently working as a **SOC Engineer at DigitalTrack Solutions, Chennai, India**. I hold an MSc in Information Security from Royal Holloway, University of London, and a B.Eng in Computer Science.
 
-Though I lack professional experience, I’ve dedicated significant time to honing my abilities by solving numerous Hack The Box and TryHackMe challenges and creating vulnerable machines in my own lab environment. I'm currently focused on advancing my qualifications by working towards the CPTS certification.
+In my current role, I monitor and respond to security incidents, perform threat hunting, and develop detection rules to strengthen the organisation's security posture. My background spans both defensive (SOC operations, incident response, SIEM) and offensive (penetration testing, CTF, HTB) security — giving me a well-rounded perspective on the threat landscape.
 
-I am eager to join a team where I can contribute my skills and grow further in the field of cybersecurity. I thrive in dynamic and collaborative environments and am passionate about delivering top-notch security testing services.
+My dedication to cybersecurity is reflected in my top 3% ranking on TryHackMe and a global ranking of top 400 on Hack The Box. I'm currently working towards the CPTS certification to further solidify my offensive security expertise.
 
-I look forward to discussing how I can be a valuable addition to your team.
+I thrive in dynamic, collaborative environments and am passionate about delivering high-quality security operations and testing services.
 
-Best regards, Nithesh Dhakshanamoorthy
+Feel free to reach out if you'd like to discuss opportunities or collaborations.
+
+Best regards,  
+Nithesh Dhakshanamoorthy  
+nitheshdm05@gmail.com  
+[LinkedIn](https://www.linkedin.com/in/nithesh-dhakshanamoorthy-2541111b3) | [GitHub](https://github.com/NitheshD05)
