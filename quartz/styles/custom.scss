@@ -631,10 +631,6 @@ li[data-for] {
     border-radius: 6px;
   }
 
-  // Graph node and link colors
-  circle { fill: var(--neon-green) !important; }
-  line { stroke: rgba(0, 255, 65, 0.3) !important; }
-  text { fill: rgba(0, 255, 65, 0.8) !important; font-family: var(--font-mono) !important; }
 }
 
 // ── Table of Contents ────────────────────────────────────────────
@@ -1281,24 +1277,14 @@ a.internal {
 // ── Article Entry Animation ───────────────────────────────────────
 // Whole article fades in on page load / navigation
 @keyframes articleEnter {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 article {
-  animation: articleEnter 0.5s ease forwards;
+  animation: articleEnter 0.4s ease forwards;
 }
 
-// ── Graph Node Enhanced Pulse ─────────────────────────────────────
-.graph svg circle {
-  animation: nodePulse 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 3px var(--neon-green));
-}
-
-@keyframes nodePulse {
-  0%, 100% { r: attr(r); filter: drop-shadow(0 0 2px var(--neon-green)); }
-  50%       { filter: drop-shadow(0 0 6px var(--neon-green)); }
-}
 
 // ── Section Divider Trace ─────────────────────────────────────────
 // h2 gets an animated border trace on appearance

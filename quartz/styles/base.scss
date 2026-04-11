@@ -6,7 +6,8 @@ html {
   scroll-behavior: smooth;
   text-size-adjust: none;
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
+  scrollbar-gutter: stable;
 }
 
 body,
