@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════
 // CYBER REALM — Interactive Hacker Effects
-// NitheshD05 | Penetration Tester | Security Researcher
+// NitheshD05 | SOC Engineer | Security Researcher
 // ═══════════════════════════════════════════════════════════════
 
 // ── Matrix Rain Canvas ──────────────────────────────────────────
@@ -98,7 +98,7 @@ function initBootSequence() {
     "[PRIV] Elevating privileges.................. OK",
     "",
     "[INFO] OPERATOR : NitheshD05",
-    "[INFO] ROLE     : Penetration Tester | VAPT Specialist",
+    "[INFO] ROLE     : SOC Engineer @ DigitalTrack Solutions",
     "[INFO] LOCATION : Chennai, India",
     "[INFO] RANK     : Top 400 globally on HackTheBox",
     "[INFO] CERT     : MSc InfoSec — Royal Holloway (NCSC/GCHQ)",
@@ -403,7 +403,7 @@ function initConsoleEgg() {
     "%c  ██████╗██╗   ██╗██████╗ ███████╗██████╗     ██████╗ ███████╗ █████╗ ██╗     ███╗   ███╗  ",
     style,
   )
-  console.log("%c  NitheshD05 | Penetration Tester | VAPT Specialist | Chennai  ", style)
+  console.log("%c  NitheshD05 | SOC Engineer @ DigitalTrack Solutions | Chennai  ", style)
   console.log("%c  Top 400 Globally on HackTheBox  ", style)
   console.log("%c  ⚠  This site is protected. Unauthorized access is prohibited.  ", styleWarn)
   console.log("%c  GitHub: https://github.com/NitheshD05  ", style)
@@ -598,7 +598,7 @@ Type <span class="ht-cmd">help</span> for available commands.
       `Available commands:\n  <span class="ht-cmd">whoami</span>     — About NitheshD05\n  <span class="ht-cmd">skills</span>     — Skill proficiency\n  <span class="ht-cmd">htb</span>        — HackTheBox stats\n  <span class="ht-cmd">contact</span>    — Get in touch\n  <span class="ht-cmd">certs</span>      — Certifications\n  <span class="ht-cmd">ls</span>         — List site sections\n  <span class="ht-cmd">clear</span>      — Clear terminal\n  <span class="ht-cmd">exit</span>       — Close terminal`,
 
     whoami: () =>
-      `<span class="ht-green">NitheshD05</span> — Nithesh Dhakshanamoorthy\nPenetration Tester | VAPT Specialist\nLocation: Chennai, India\nMSc Information Security — Royal Holloway, University of London\nSpecialisation: Web App, Network &amp; Active Directory Pentesting`,
+      `<span class="ht-green">NitheshD05</span> — Nithesh Dhakshanamoorthy\nSOC Engineer @ DigitalTrack Solutions\nLocation: Chennai, India\nMSc Information Security — Royal Holloway, University of London\nSpecialisation: Threat Detection, Incident Response &amp; Penetration Testing`,
 
     skills: () =>
       `<span class="ht-cyan">[SKILL PROFICIENCY SCAN]</span>\n\nPenetration Testing  <span class="ht-bar" data-val="95">░░░░░░░░░░░░░░░░░░░░</span> 95%\nNetwork Security     <span class="ht-bar" data-val="85">░░░░░░░░░░░░░░░░░░░░</span> 85%\nWeb App Testing      <span class="ht-bar" data-val="88">░░░░░░░░░░░░░░░░░░░░</span> 88%\nActive Directory     <span class="ht-bar" data-val="78">░░░░░░░░░░░░░░░░░░░░</span> 78%\nPython / Scripting   <span class="ht-bar" data-val="82">░░░░░░░░░░░░░░░░░░░░</span> 82%\nCTF / HTB            <span class="ht-bar" data-val="90">░░░░░░░░░░░░░░░░░░░░</span> 90%`,
