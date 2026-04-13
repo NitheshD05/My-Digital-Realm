@@ -646,6 +646,19 @@ li[data-for] {
     border-radius: 6px;
   }
 
+  // Node and link colors — CSS rules override SVG presentation attributes
+  // so !important is only needed where D3 uses .style() (inline styles)
+  svg circle {
+    fill: rgba(0, 255, 65, 0.55) !important;
+  }
+  svg line {
+    stroke: rgba(0, 255, 65, 0.25) !important;
+  }
+  svg text {
+    fill: rgba(0, 255, 65, 0.8) !important;
+    font-family: var(--font-mono) !important;
+  }
+
 }
 
 // ── Table of Contents ────────────────────────────────────────────
@@ -1127,31 +1140,6 @@ article ol li::marker {
 // ══════════════════════════════════════════════════════════════════
 //  ENHANCED ANIMATIONS
 // ══════════════════════════════════════════════════════════════════
-
-// ── Scroll Reveal ─────────────────────────────────────────────────
-// JS adds .reveal class; IntersectionObserver adds .visible
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
-  will-change: transform, opacity;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-  will-change: auto;
-}
-.reveal-left {
-  opacity: 0;
-  transform: translateY(10px);   // subtle upward fade — no horizontal shift
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  will-change: transform, opacity;
-}
-.reveal-left.visible {
-  opacity: 1;
-  transform: translateY(0);
-  will-change: auto;
-}
 
 // ── Animated Underline on Links ───────────────────────────────────
 // Cyan sweep left → right on hover (external + nav links)

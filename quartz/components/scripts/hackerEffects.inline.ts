@@ -413,45 +413,6 @@ function initConsoleEgg() {
   )
 }
 
-// ── Scroll Reveal ───────────────────────────────────────────────
-function initScrollReveal() {
-  // Skip if user prefers reduced motion
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible")
-          observer.unobserve(entry.target)
-        }
-      })
-    },
-    { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
-  )
-
-  // Headings slide from left
-  document.querySelectorAll("article h2, article h3").forEach((el, i) => {
-    if (!el.classList.contains("reveal-left")) {
-      el.classList.add("reveal-left")
-      ;(el as HTMLElement).style.transitionDelay = `${i * 0}ms` // no stagger on headings
-      observer.observe(el)
-    }
-  })
-
-  // Body content fades up with stagger
-  const revealEls = document.querySelectorAll(
-    "article p, article li, article pre, article blockquote, article table, article img",
-  )
-  revealEls.forEach((el, i) => {
-    if (!el.classList.contains("reveal")) {
-      el.classList.add("reveal")
-      ;(el as HTMLElement).style.transitionDelay = `${Math.min(i * 35, 280)}ms`
-      observer.observe(el)
-    }
-  })
-}
-
 // ── Live Packets Counter in Status Bar ─────────────────────────
 function initPacketsCounter() {
   const sb = document.getElementById("cyber-statusbar")
@@ -788,7 +749,6 @@ function runPageEffects() {
   initScrambleTitle()
   initSearchPlaceholder()
   initKeywordBadges()
-  initScrollReveal()
   initH2Trace()
   init3DTilt()
   initReadingProgress()
