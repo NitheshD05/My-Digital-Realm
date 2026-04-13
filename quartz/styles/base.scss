@@ -6,8 +6,7 @@ html {
   scroll-behavior: smooth;
   text-size-adjust: none;
   overflow-x: hidden;
-  width: 100%;
-  scrollbar-gutter: stable;
+  width: 100vw;
 }
 
 body,
@@ -185,7 +184,6 @@ a {
     & .sidebar.left {
       left: calc(calc(100vw - $pageWidth) / 2 - $sidePanelWidth);
       @media all and (max-width: $fullPageWidth) {
-        left: unset;
         gap: 0;
         align-items: center;
       }
@@ -194,9 +192,6 @@ a {
     & .sidebar.right {
       right: calc(calc(100vw - $pageWidth) / 2 - $sidePanelWidth);
       flex-wrap: wrap;
-      @media all and (max-width: $fullPageWidth) {
-        right: unset;
-      }
       & > * {
         @media all and (max-width: $fullPageWidth) {
           flex: 1;

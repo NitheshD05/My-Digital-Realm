@@ -492,14 +492,12 @@ pre {
   background: rgba(4, 8, 4, 0.92);  // solid — no backdrop-filter (expensive)
   border-right: 1px solid rgba(0, 255, 65, 0.12);
   padding-right: 1rem;
-  contain: layout style;
 }
 
 // ── Right Sidebar ────────────────────────────────────────────────
 .right.sidebar {
   background: rgba(4, 8, 4, 0.92);
   border-left: 1px solid rgba(0, 255, 65, 0.08);
-  contain: layout style;
 }
 
 // ── Explorer (File Tree) ─────────────────────────────────────────
@@ -1275,17 +1273,6 @@ a.internal {
   min-width: 4ch;
   display: inline-block;
   text-align: right;
-}
-
-// ── Article Entry Animation ───────────────────────────────────────
-// Whole article fades in on page load / navigation
-@keyframes articleEnter {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-article {
-  animation: articleEnter 0.4s ease forwards;
 }
 
 
