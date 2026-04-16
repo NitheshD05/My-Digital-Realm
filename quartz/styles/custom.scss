@@ -1,5 +1,29 @@
 @use "./base.scss";
 
+// ── Mobile layout (< 768px) ──────────────────────────────────────
+// Hide Explorer and Graph — too large for small screens.
+// Left sidebar collapses to a clean top bar: title + search + darkmode.
+@media all and (max-width: 767px) {
+  .explorer,
+  .graph {
+    display: none !important;
+  }
+
+  .left.sidebar {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.75rem 1rem !important;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--lightgray);
+  }
+
+  .right.sidebar {
+    padding: 0.5rem 1rem 1rem !important;
+  }
+}
+
+// ── Desktop 3-column layout (≥ 768px) ────────────────────────────
 // Full-width 3-column layout.
 // Root cause of squeezing: .page has max-width: 750px on screens < 1350px,
 // so the grid was only stretching 750px wide, not the full viewport.
