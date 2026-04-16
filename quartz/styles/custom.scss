@@ -245,31 +245,11 @@ body {
   padding-bottom: 26px; // account for status bar
 }
 
-// Make sure content layers above matrix canvas
-#quartz-body,
-article,
-header,
-footer {
-  position: relative;
-  z-index: 1;
-}
-
-// Sidebars: position:fixed on desktop already creates a stacking context,
-// so only z-index is needed — adding position:relative here would override
-// the fixed positioning from base.scss (higher specificity: 0,2,0 vs 0,1,0).
-// On mobile (<1510px) sidebars become position:initial (static), so we
-// restore position:relative there so z-index can keep them above the canvas.
-.left.sidebar,
-.right.sidebar {
-  z-index: 1;
-}
-
-@media all and (max-width: 1510px) {
-  .left.sidebar,
-  .right.sidebar {
-    position: relative;
-  }
-}
+// NOTE: No position/z-index overrides on #quartz-body, .left.sidebar,
+// .right.sidebar, article, header, or footer.
+// Quartz base.scss handles all structural layout/positioning.
+// Adding position:relative to #quartz-body creates a containing block
+// that traps position:fixed sidebar elements, causing the thin-strip bug.
 
 // ── Page Title (Site Name) ───────────────────────────────────────
 .page-title {
