@@ -1,13 +1,20 @@
 @use "./base.scss";
 
-// Full-width responsive 3-column layout.
-// Quartz's default uses fixed pixel widths (300px sidebars + 750px content)
-// which leaves large empty margins on the outer edges.
-// This overrides it with a viewport-filling CSS grid at all screen sizes ≥ 768px.
+// Full-width 3-column layout.
+// Root cause of squeezing: .page has max-width: 750px on screens < 1350px,
+// so the grid was only stretching 750px wide, not the full viewport.
+// Fix: remove the max-width cap and let the grid fill 100% of the screen.
 @media all and (min-width: 768px) {
+  // Remove the 750px cap so the page fills the full viewport width
+  .page {
+    max-width: 100% !important;
+    padding: 0 0.5rem !important;
+    box-sizing: border-box;
+  }
+
   .page > #quartz-body {
     display: grid !important;
-    grid-template-columns: 22% minmax(0, 1fr) 22%;
+    grid-template-columns: 20% minmax(0, 1fr) 20%;
     align-items: start;
     width: 100%;
   }
@@ -20,7 +27,7 @@
     right: unset !important;
     width: auto !important;
     flex-direction: column !important;
-    padding: 2rem 1rem 1rem !important;
+    padding: 1.5rem 1rem !important;
     max-height: 100vh;
     overflow-y: auto;
     box-sizing: border-box;
@@ -32,7 +39,7 @@
     width: auto !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     box-sizing: border-box;
   }
 }
