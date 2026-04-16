@@ -1,6 +1,33 @@
 @use "./base.scss";
 
-// Reduce sidebar padding so Explorer and TOC have enough room at 300px width
-.sidebar {
-  padding: 0 1.5rem !important;
+// ── 3-column layout for 900px–1349px screens ─────────────────────
+// Quartz's native 3-column (position:fixed sidebars) only triggers at
+// 1350px+. This forces a CSS Grid 3-column layout for common laptop
+// widths (1280px, 1366px, 1440px) where Quartz would otherwise stack
+// everything into a single column.
+@media all and (min-width: 900px) and (max-width: 1349px) {
+  .page > #quartz-body {
+    display: grid !important;
+    grid-template-columns: 220px minmax(0, 1fr) 220px;
+    align-items: start;
+  }
+
+  .sidebar {
+    position: sticky !important;
+    top: 0;
+    width: 220px !important;
+    flex-direction: column !important;
+    padding: 0 1rem !important;
+    margin-top: 6rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+}
+
+// Reduce sidebar padding on wide screens too (sidePanelWidth is now 300px)
+@media all and (min-width: 1350px) {
+  .sidebar {
+    padding: 0 1.5rem !important;
+  }
 }
