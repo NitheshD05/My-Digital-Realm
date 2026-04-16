@@ -1,3 +1,6 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// Reduce sidebar padding so Explorer and TOC have enough room at 300px width
+.sidebar {
+  padding: 0 1.5rem !important;
+}
