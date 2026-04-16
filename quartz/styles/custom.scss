@@ -28,8 +28,8 @@
     width: auto !important;
     flex-direction: column !important;
     padding: 1.5rem 1rem !important;
-    max-height: 100vh;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     box-sizing: border-box;
     margin-top: 0 !important;
   }
